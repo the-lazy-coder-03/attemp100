@@ -1,0 +1,28 @@
+
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="252.0" prefWidth="505.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.attemp100.ProdAddControl">
+   <children>
+      <TitledPane animated="false" layoutX="61.0" layoutY="23.0" prefHeight="206.0" prefWidth="383.0" text="Add Products">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="AddProdCancel" layoutX="209.0" layoutY="134.0" mnemonicParsing="false" onAction="#SwitchToMainGui" text="Cancel" />
+                  <Button fx:id="ProdAddBtn" layoutX="74.0" layoutY="134.0" mnemonicParsing="false" onAction="#SwitchToMainGui" text="Add" />
+                  <Label layoutX="44.0" layoutY="22.0" text="Name:" />
+                  <Label layoutX="44.0" layoutY="51.0" text="Quantity:" />
+                  <Label layoutX="44.0" layoutY="82.0" text="Price:" />
+                  <TextField fx:id="QuantityAdd" layoutX="209.0" layoutY="47.0" />
+                  <TextField fx:id="AddName" layoutX="209.0" layoutY="18.0" />
+                  <TextField fx:id="PriceAdd" layoutX="209.0" layoutY="78.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+   </children>
+</AnchorPane>

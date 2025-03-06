@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="363.0" prefWidth="524.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.attemp100.HelloController">
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10" />
+    </padding>
+
+    <TitledPane collapsible="false" text="Purchase">
+        <VBox spacing="10">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+
+            <TableView fx:id="productTable" prefHeight="200.0">
+                <columns>
+                    <TableColumn fx:id="idColumn" text="ID" />
+                    <TableColumn fx:id="nameColumn" text="Name" />
+                    <TableColumn fx:id="quantityColumn" text="Quantity" />
+                    <TableColumn fx:id="priceColumn" text="Price" />
+                    <TableColumn fx:id="createdColumn" text="Created" />
+                    <TableColumn fx:id="updatedColumn" text="Updated" />
+                </columns>
+            </TableView>
+
+            <HBox alignment="CENTER" spacing="10">
+                <Button fx:id="ProdAdd" mnemonicParsing="false" text="Add Product" />
+                <Button fx:id="ProdUpdate" mnemonicParsing="false" text="Update Product" />
+                <Button fx:id="ProdDelete" mnemonicParsing="false" text="Delete Product" />
+            </HBox>
+        </VBox>
+    </TitledPane>
+</VBox>
