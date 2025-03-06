@@ -28,8 +28,19 @@ public class ProdAddControl {
     // Callback to pass data back to the main controller
     private Consumer<InputtedProducts> onSaveCallback;
 
+    // Store the selected product for updates
+    private InputtedProducts selectedProduct;
+
     public void setOnSaveCallback(Consumer<InputtedProducts> callback) {
         this.onSaveCallback = callback;
+    }
+
+    public void setProductDetails(InputtedProducts product) {
+        this.selectedProduct = product;
+        // Populate the form with the selected product's details
+        AddName.setText(product.getName());
+        PriceAdd.setText(String.valueOf(product.getPrice()));
+        QuantityAdd.setText(String.valueOf(product.getQuantity()));
     }
 
     @FXML
@@ -57,14 +68,21 @@ public class ProdAddControl {
             double price = Double.parseDouble(PriceAdd.getText());
             int quantity = Integer.parseInt(QuantityAdd.getText());
 
-            // Create a new InputtedProducts object (without passing the id)
-            InputtedProducts product = new InputtedProducts(
-                    name,
-                    quantity,
-                    price,
-                    "2023-10-01", // Placeholder for created date
-                    "2023-10-01" // Placeholder for updated date
-            );
+            // Create a new InputtedProducts object
+            InputtedProducts product;
+            if (selectedProduct == null) {
+                // Add new product
+                product = new InputtedProducts(name, quantity, price);
+            } else {
+                // Update existing product
+                product = new InputtedProducts(
+                        selectedProduct.getId(), // Keep the same ID
+                        name,
+                        quantity,
+                        price,
+                        selectedProduct.getCreatedDateTime() // Pass the LocalDateTime object
+                );
+            }
 
             // Pass the product back to the main controller
             if (onSaveCallback != null) {

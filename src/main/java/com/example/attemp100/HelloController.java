@@ -13,58 +13,45 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 public class HelloController {
 
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
     private Button ProdAdd;
-
-    @FXML
-    private Button ProdDelete;
 
     @FXML
     private Button ProdUpdate;
 
     @FXML
-    private TableView<com.example.attemp100.InputtedProducts> productTable;
+    private Button ProdDelete;
 
     @FXML
-    private TableColumn<com.example.attemp100.InputtedProducts, Integer> idColumn;
+    private TableView<InputtedProducts> productTable;
 
     @FXML
-    private TableColumn<com.example.attemp100.InputtedProducts, String> nameColumn;
+    private TableColumn<InputtedProducts, Integer> idColumn;
 
     @FXML
-    private TableColumn<com.example.attemp100.InputtedProducts, Integer> quantityColumn;
+    private TableColumn<InputtedProducts, String> nameColumn;
 
     @FXML
-    private TableColumn<com.example.attemp100.InputtedProducts, Double> priceColumn;
+    private TableColumn<InputtedProducts, Integer> quantityColumn;
 
     @FXML
-    private TableColumn<com.example.attemp100.InputtedProducts, String> createdColumn;
+    private TableColumn<InputtedProducts, Double> priceColumn;
 
     @FXML
-    private TableColumn<com.example.attemp100.InputtedProducts, String> updatedColumn;
+    private TableColumn<InputtedProducts, String> createdColumn;
+
+    @FXML
+    private TableColumn<InputtedProducts, String> updatedColumn;
 
     // ObservableList to store products
-    private ObservableList<com.example.attemp100.InputtedProducts> productList = FXCollections.observableArrayList();
+    private ObservableList<InputtedProducts> productList = FXCollections.observableArrayList();
 
     @FXML
     void initialize() {
-        assert ProdAdd != null : "fx:id=\"ProdAdd\" was not injected: check your FXML file 'yuurski.fxml'.";
-        assert ProdDelete != null : "fx:id=\"ProdDelete\" was not injected: check your FXML file 'yuurski.fxml'.";
-        assert ProdUpdate != null : "fx:id=\"ProdUpdate\" was not injected: check your FXML file 'yuurski.fxml'.";
-        assert productTable != null : "fx:id=\"productTable\" was not injected: check your FXML file 'yuurski.fxml'.";
-
         // Bind the table columns to the InputtedProducts properties
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -78,6 +65,12 @@ public class HelloController {
 
         // Set action for the "ProdAdd" button
         ProdAdd.setOnAction(event -> openAddProductWindow());
+
+        // Set action for the "ProdUpdate" button
+        ProdUpdate.setOnAction(event -> openUpdateProductWindow());
+
+        // Set action for the "ProdDelete" button
+        ProdDelete.setOnAction(event -> deleteProduct());
     }
 
     private void openAddProductWindow() {
@@ -109,5 +102,64 @@ public class HelloController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void openUpdateProductWindow() {
+        // Get the selected product from the table
+        InputtedProducts selectedProduct = productTable.getSelectionModel().getSelectedItem();
+
+        if (selectedProduct == null) {
+            System.err.println("No product selected. Please select a product to update.");
+            return;
+        }
+
+        try {
+            // Load the "Add Product" FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/attemp100/ProdAdd.fxml"));
+            Parent addProductRoot = loader.load();
+
+            // Get the controller for the "Add Product" window
+            ProdAddControl prodAddControl = loader.getController();
+
+            // Populate the form with the selected product's details
+            prodAddControl.setProductDetails(selectedProduct);
+
+            // Set the callback to handle the updated product
+            prodAddControl.setOnSaveCallback(product -> {
+                // Update the product in the list
+                int index = productList.indexOf(selectedProduct);
+                if (index != -1) {
+                    productList.set(index, product);
+                }
+            });
+
+            // Create a new scene and stage
+            Scene addProductScene = new Scene(addProductRoot);
+            Stage addProductStage = new Stage();
+            addProductStage.setTitle("Update Product");
+            addProductStage.setScene(addProductScene);
+
+            // Set modality to block interaction with the main window
+            addProductStage.initModality(Modality.APPLICATION_MODAL);
+
+            // Show the "Update Product" window
+            addProductStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void deleteProduct() {
+        // Get the selected product from the table
+        InputtedProducts selectedProduct = productTable.getSelectionModel().getSelectedItem();
+
+        if (selectedProduct == null) {
+            System.err.println("No product selected. Please select a product to delete.");
+            return;
+        }
+
+        // Remove the selected product from the list
+        productList.remove(selectedProduct);
+        System.out.println("Product deleted: " + selectedProduct);
     }
 }
