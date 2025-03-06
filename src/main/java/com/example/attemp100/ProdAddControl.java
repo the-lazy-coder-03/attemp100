@@ -72,13 +72,7 @@ public class ProdAddControl {
             InputtedProducts product;
             if (selectedProduct == null) {
                 // Add new product
-                product = new InputtedProducts(
-                        name,
-                        quantity,
-                        price,
-                        "2023-10-01", // Placeholder for created date
-                        "2023-10-01" // Placeholder for updated date
-                );
+                product = new InputtedProducts(name, quantity, price);
             } else {
                 // Update existing product
                 product = new InputtedProducts(
@@ -86,8 +80,7 @@ public class ProdAddControl {
                         name,
                         quantity,
                         price,
-                        selectedProduct.getCreated(), // Keep the original created date
-                        "2023-10-01" // Update the updated date
+                        selectedProduct.getCreatedDateTime() // Pass the LocalDateTime object
                 );
             }
 

@@ -68,6 +68,9 @@ public class HelloController {
 
         // Set action for the "ProdUpdate" button
         ProdUpdate.setOnAction(event -> openUpdateProductWindow());
+
+        // Set action for the "ProdDelete" button
+        ProdDelete.setOnAction(event -> deleteProduct());
     }
 
     private void openAddProductWindow() {
@@ -144,5 +147,19 @@ public class HelloController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void deleteProduct() {
+        // Get the selected product from the table
+        InputtedProducts selectedProduct = productTable.getSelectionModel().getSelectedItem();
+
+        if (selectedProduct == null) {
+            System.err.println("No product selected. Please select a product to delete.");
+            return;
+        }
+
+        // Remove the selected product from the list
+        productList.remove(selectedProduct);
+        System.out.println("Product deleted: " + selectedProduct);
     }
 }

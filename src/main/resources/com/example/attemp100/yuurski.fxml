@@ -21,12 +21,12 @@
 
             <TableView fx:id="productTable" prefHeight="200.0">
                 <columns>
-                    <TableColumn fx:id="idColumn" text="ID" />
-                    <TableColumn fx:id="nameColumn" text="Name" />
-                    <TableColumn fx:id="quantityColumn" text="Quantity" />
-                    <TableColumn fx:id="priceColumn" text="Price" />
-                    <TableColumn fx:id="createdColumn" text="Created" />
-                    <TableColumn fx:id="updatedColumn" text="Updated" />
+                    <TableColumn fx:id="idColumn" text="ID" prefWidth="50" />
+                    <TableColumn fx:id="nameColumn" text="Name" prefWidth="150" />
+                    <TableColumn fx:id="quantityColumn" text="Quantity" prefWidth="80" />
+                    <TableColumn fx:id="priceColumn" text="Price" prefWidth="80" />
+                    <TableColumn fx:id="createdColumn" text="Created" prefWidth="200" />
+                    <TableColumn fx:id="updatedColumn" text="Updated" prefWidth="200" />
                 </columns>
             </TableView>
 
