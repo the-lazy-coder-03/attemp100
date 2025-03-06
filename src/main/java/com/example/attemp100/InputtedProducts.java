@@ -10,9 +10,19 @@ public class InputtedProducts {
     private String created;
     private String updated;
 
-    // Constructor (without id parameter)
+    // Constructor for new products (without id parameter)
     public InputtedProducts(String name, int quantity, double price, String created, String updated) {
         this.id = nextId++; // Auto-generate the ID
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+        this.created = created;
+        this.updated = updated;
+    }
+
+    // Constructor for updating existing products (with id parameter)
+    public InputtedProducts(int id, String name, int quantity, double price, String created, String updated) {
+        this.id = id; // Use the existing ID
         this.name = name;
         this.quantity = quantity;
         this.price = price;
